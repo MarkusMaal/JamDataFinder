@@ -52,10 +52,11 @@ public abstract class DataSearchers
     {
         Console.WriteLine("Identifying parameters for finding a matching BD file");
         var simpleName = Path.GetFileNameWithoutExtension(inFile);
-        var outPath = Path.Combine(outDir, simpleName + ".BD");
+        var outPath = Path.Combine(outDir, simpleName + ".{0}.BD");
         using var hdStream = new FileStream(hdFile, FileMode.Open, FileAccess.Read);
         hdStream.Position = 4;
         var buffer = new byte[4];
+        var id = 0;
         hdStream.ReadExactly(buffer, 0, buffer.Length);
         var bdLength = BitConverter.ToInt32(buffer, 0);
         hdStream.Position = 0x10;
@@ -129,14 +130,14 @@ public abstract class DataSearchers
             if (!match) continue;
 
             Console.WriteLine("\nFound a matching BD file! Saving...");
+            id++;
             bdStream.Position = os;
-            using var outStream = new FileStream(outPath, FileMode.Create, FileAccess.Write);
+            using var outStream = new FileStream(string.Format(outPath, id), FileMode.Create, FileAccess.Write);
             for (var i = 0; i < bdLength; i++)
             {
                 outStream.WriteByte((byte)bdStream.ReadByte());
             }
             outStream.Close();
-            break;
         }
         Console.WriteLine("Finished!");
     }
@@ -167,7 +168,7 @@ public abstract class DataSearchers
             
             // the header is considered valid
             Console.Write($"\r{++id} header(s) found so far");
-            inStream.Position = os;
+            inStream.Position = os - 0xC;
             using var outStream = new FileStream(string.Format(outNameFormat, id),  FileMode.Create, FileAccess.Write);
             
             // header
