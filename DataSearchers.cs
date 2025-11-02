@@ -120,7 +120,7 @@ public abstract class DataSearchers
             Console.Write($"\rFound a (potential) VAG header at 0x{os:X}");
             bdStream.Position = os + (minOffset * 8) - 0xE;
             var match = true;
-            for (var k = 0; k < 0xE; k++)
+            for (var k = 0; k < 0xD; k++)
             {
                 if (bdStream.ReadByte() == 0x77) continue;
                 match = false;
@@ -138,6 +138,12 @@ public abstract class DataSearchers
                 outStream.WriteByte((byte)bdStream.ReadByte());
             }
             outStream.Close();
+        }
+        Console.WriteLine();
+        if (id == 0)
+        {
+            Console.WriteLine("No headers found!");
+            return;
         }
         Console.WriteLine("Finished!");
     }
