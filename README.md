@@ -9,9 +9,10 @@ This tool allows you to find sequence and voicebank data from PSX/PS2 games that
 - Search for SSsq sequences
 - Low memory usage
 
-## Converting JAM to SF2 and MIDI
+## Converting JAM to DLS and MIDI
 
 This tool by itself can't do this, but you can try using these tools:
 
-- [FlipnicFileTools](https://github.com/MarkusMaal/FlipnicFileTools) - created by me, specialized for Flipnic, but also works with other games when it comes to converting .HD/.BD to .SF2 if you convert the sequence to MIDI yourself first
-- [Sssq2mid](https://www16.atwiki.jp/soundfile?cmd=upload&act=open&pageid=6&file=Sssq2mid.7z) - for getting the MIDI data from the SQ file
+- [vgm2dls](https://github.com/AceKombat/vgm2dls) - allows you to convert HD/BD files to DLS soundfont file
+- [vgmseq2midi](https://github.com/AceKombat/vgmseq2midi) - for getting the MIDI data from the SQ file
+- [MidiEditor](http://midieditor.org/) - allows you to edit MIDI files, useful if you want to fix MIDI files in a way where it doesn't use percussion channel as vgmseq2midi/vgm2dls don't account for this
